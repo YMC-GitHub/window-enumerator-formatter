@@ -1,8 +1,3 @@
-以下是更新后的英文文档，反映库的最新架构和特性：
-
-## README.md
-
-```markdown
 # Window Enumerator Formatter
 
 [![Crates.io](https://img.shields.io/crates/v/window-enumerator-formatter)](https://crates.io/crates/window-enumerator-formatter)
