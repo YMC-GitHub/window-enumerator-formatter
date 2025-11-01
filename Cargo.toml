@@ -2,12 +2,14 @@
 name = "window-enumerator-formatter"
 version = "0.1.0"
 edition = "2021"
-description = "A powerful formatting library for window information with multiple output formats and templates"
+description = "A powerful formatting library for window information with multiple output formats (JSON, YAML, CSV, Table) and template support"
 authors = ["YeMiancheng <ymc.github@gmail.com>"]
-license = "MIT"
+license = "MIT OR Apache-2.0"
 repository = "https://github.com/ymc-github/window-enumerator-formatter"
-keywords = ["windows", "format", "json", "csv", "yaml", "template"]
-categories = ["development-tools", "text-processing"]
+keywords = ["windows", "formatter"]
+categories = ["development-tools", "text-processing", "command-line-utilities"]
+readme = "README.md"
+documentation = "https://docs.rs/window-enumerator-formatter"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
@@ -19,6 +21,7 @@ window-enumerator = { version = "0.4", optional = true }
 [features]
 default = []
 window-enumerator = ["dep:window-enumerator"]
+all = ["window-enumerator"]
 
 [dev-dependencies]
 window-enumerator = { version = "0.4", features = ["windows"] }
