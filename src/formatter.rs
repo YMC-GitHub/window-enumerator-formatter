@@ -174,7 +174,7 @@ impl WindowFormatter {
 
     // Table format - single window
     fn format_table_single(window: &WindowInfo) -> String {
-        Self::format_table(&[window.clone()], &FormatConfig::default())
+        Self::format_table(std::slice::from_ref(window), &FormatConfig::default())
     }
 
     // CSV format - list
@@ -212,7 +212,7 @@ impl WindowFormatter {
 
     // CSV format - single window
     fn format_csv_single(window: &WindowInfo) -> String {
-        Self::format_csv(&[window.clone()], &FormatConfig::default())
+        Self::format_csv(std::slice::from_ref(window), &FormatConfig::default())
     }
 
     // Simple format list
