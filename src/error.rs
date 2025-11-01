@@ -44,6 +44,3 @@ pub enum FormatError {
         message: String,
     },
 }
-
-// 移除未使用的 Result 类型别名
-// 因为在实际代码中没有使用这个类型别名
