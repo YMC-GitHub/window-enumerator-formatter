@@ -8,19 +8,21 @@
 //! - **Multiple Formats**: JSON, YAML, CSV, Table, Simple, and Detailed formats
 //! - **Template System**: Field selection, key-value pairs, and custom templates
 //! - **Highly Configurable**: Title truncation, header control, and output customization
-//! - **Easy to Use**: Simple API with rich examples
-//! - **Optional Integration**: Optional feature for `window-enumerator` integration
+//! - **Easy to Use**: Simple API with rich examples and builder pattern
+//! - **Flexible**: Works standalone or with `window-enumerator` integration
+//! - **Optional Dependencies**: Minimal required dependencies
 //!
 //! # Quick Start
 //!
-//! ## Basic usage with custom data:
+//! ## Standalone Usage
+//!
 //! ```
 //! use window_enumerator_formatter::{
-//!     WindowInfo, WindowPosition,
-//!     OutputFormat, WindowListFormat
+//!     WindowInfo, WindowPosition, OutputFormat, WindowListFormat
 //! };
 //! use std::path::PathBuf;
 //!
+//! // Create window data using builder pattern
 //! let window = WindowInfo::builder()
 //!     .hwnd(12345)
 //!     .pid(1234)
@@ -33,7 +35,14 @@
 //!     .build();
 //!
 //! let windows = vec![window];
-//! println!("{}", windows.format_with(OutputFormat::Json));
+//!
+//! // Format with different output formats
+//! println!("JSON: {}", windows.format_with(OutputFormat::Json));
+//! println!("Table: {}", windows.format_with(OutputFormat::Table));
+//! println!("CSV: {}", windows.format_with(OutputFormat::Csv));
+//!
+//! // Individual window formatting
+//! println!("Single window: {}", windows[0].format_with(OutputFormat::Simple));
 //! ```
 //!
 //! ## Using different output formats:
@@ -193,6 +202,23 @@ pub use formatter::{
     FormatConfig, OutputFormat, TemplateFormat, WindowFormatter, WindowListFormat,
 };
 pub use models::{WindowInfo, WindowPosition};
+
+// 为 WindowInfo 实现格式化方法，消除循环依赖
+impl WindowInfo {
+    /// Format this window according to the configuration.
+    pub fn format(&self, config: &FormatConfig) -> String {
+        WindowFormatter::format_window(self, config)
+    }
+
+    /// Format this window with a specific output format.
+    pub fn format_with(&self, format: OutputFormat) -> String {
+        let config = FormatConfig {
+            format,
+            ..Default::default()
+        };
+        self.format(&config)
+    }
+}
 
 /// Prelude module for convenient imports.
 pub mod prelude {

@@ -41,19 +41,7 @@ impl WindowInfo {
         WindowInfoBuilder::default()
     }
 
-    /// Format this window according to the configuration.
-    pub fn format(&self, config: &crate::FormatConfig) -> String {
-        crate::WindowFormatter::format_window(self, config)
-    }
-
-    /// Format this window with a specific output format.
-    pub fn format_with(&self, format: crate::OutputFormat) -> String {
-        let config = crate::FormatConfig {
-            format,
-            ..Default::default()
-        };
-        self.format(&config)
-    }
+    // format 和 format_with 方法已移到 lib.rs 中
 }
 
 /// Builder for WindowInfo to avoid too many arguments.
